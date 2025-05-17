@@ -118,4 +118,17 @@ fi
 
 may_update
 
+# create a file to indicate that the server is waiting for greenlight
+touch "${ARK_SERVER_VOLUME}/waiting-for-greenlight"
+
+# wait until ARK_SERVER_VOLUME/greenlight exists
+while [ ! -f "${ARK_SERVER_VOLUME}/greenlight" ]; do
+  echo "Waiting for greenlight..."
+  sleep 1
+done
+
+# remove the waiting-for-greenlight file
+rm "${ARK_SERVER_VOLUME}/waiting-for-greenlight"
+
+# run the server in the foreground
 exec "${ARKMANAGER}" run --verbose ${args[@]}
