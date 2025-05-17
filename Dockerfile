@@ -16,6 +16,7 @@ ENV         IMAGE_VERSION="${IMAGE_VERSION}" \
             BACKUP_ON_STOP="false" \
             PRE_UPDATE_BACKUP="true" \
             WARN_ON_STOP="true" \
+            BACKUP_POST_COMMAND="echo 'Backup complete'" \
             ARK_TOOLS_VERSION="${ARK_TOOLS_VERSION}" \
             ARK_SERVER_VOLUME="/app" \
             TEMPLATE_DIRECTORY="/conf.d" \
