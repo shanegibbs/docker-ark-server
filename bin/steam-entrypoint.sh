@@ -90,6 +90,12 @@ if [[ ! -d ${ARK_SERVER_VOLUME}/server ]] || [[ ! -f ${ARK_SERVER_VOLUME}/server
   chmod +x "${ARK_SERVER_VOLUME}/server/ShooterGame/Binaries/Linux/ShooterGameServer"
 
   ${ARKMANAGER} install --verbose
+
+  # If fresh install, check if there are files in the backup directory and run a restore
+  if [ "$(ls -A ${ARK_SERVER_VOLUME}/backup)" ]; then
+    echo "Found backup files, attempting restore..."
+    ${ARKMANAGER} restore --verbose
+  fi
 fi
 
 crontab "${ARK_SERVER_VOLUME}/crontab"

@@ -2,7 +2,7 @@ FROM        cm2network/steamcmd:root
 
 LABEL       MAINTAINER="https://github.com/Hermsi1337/"
 
-ARG         ARK_TOOLS_VERSION="1.6.61a"
+ARG         ARK_TOOLS_VERSION="1.6.65"
 ARG         IMAGE_VERSION="dev"
 
 ENV         IMAGE_VERSION="${IMAGE_VERSION}" \
@@ -48,6 +48,11 @@ RUN         set -x && \
             su ${USER} -c "bash -x ${STEAMCMDDIR}/steamcmd.sh +login anonymous +quit" && \
             apt-get -qq autoclean && apt-get -qq autoremove && apt-get -qq clean && \
             rm -rf /tmp/* /var/cache/*
+
+RUN         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+            unzip awscliv2.zip && \
+            ./aws/install && \
+            rm -rf awscliv2.zip aws
 
 COPY        bin/    /
 COPY        conf.d  ${TEMPLATE_DIRECTORY}
